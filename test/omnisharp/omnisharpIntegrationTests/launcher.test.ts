@@ -52,6 +52,7 @@ describe(`launcher:`, () => {
     test(`Returns a Solution and Project target`, () => {
         const testResources: vscode.Uri[] = [
             vscode.Uri.parse(`/test.sln`),
+            vscode.Uri.parse(`/test.slnx`),
             vscode.Uri.parse(`/test/test.csproj`),
             vscode.Uri.parse(`/test/Program.cs`),
         ];
@@ -68,6 +69,11 @@ describe(`launcher:`, () => {
             (target) => target.workspaceKind === LaunchTargetKind.Solution && target.label === 'test.sln'
         );
         expect(solutionTarget).toBeDefined();
+
+        const xmlSolutionTarget = launchTargets.find(
+            (target) => target.workspaceKind === LaunchTargetKind.Solution && target.label === 'test.slnx'
+        );
+        expect(xmlSolutionTarget).toBeDefined();
 
         const projectTarget = launchTargets.find(
             (target) => target.workspaceKind === LaunchTargetKind.Project && target.label === 'test.csproj'
